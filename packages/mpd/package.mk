@@ -12,6 +12,7 @@ preconfigure_package() {
 		-e "s/install: not is_android and not is_haiku,/install: not is_android and not is_haiku,\n install_rpath: install_rpath,/g" \
 		${PACKAGE_SRC_DIR}/meson.build
 
+	sed -i -e "s/SO_REUSEPORT/SO_REUSEADDR/" ${PACKAGE_SRC_DIR}/src/net/SocketDescriptor.cxx
 }
 
 configure_package() {

@@ -23,26 +23,22 @@ make_package() {
 }
 
 preinstall_package() {
-	for NAME in server client; do
+	for NAME in client; do
 		echo_info "patching install command in ${NAME}/Makefile"
 		sed -i -E "s;install -s (.*);install -s --strip-program=${BUILD_STRIP} \1;" ${NAME}/Makefile
 	done
 }
 
 install_package() {
-	make DESTDIR=${STAGING_DIR} installserver installclient
+	make DESTDIR=${STAGING_DIR} installclient
 }
 
 postinstall_package() {
 	mkdir -p ${STAGING_DIR}/etc/init.d ${STAGING_DIR}/etc/rc.d
-	mkdir -p ${STAGING_DIR}/${INSTALL_PREFIX}/share/snapserver/snapweb
 
-	for NAME in snapclient snapserver; do
+	for NAME in snapclient; do
 		cp -v ${PACKAGE_DIR}/config/${NAME}.init ${STAGING_DIR}/etc/init.d/${NAME}
 		chmod 755 ${STAGING_DIR}/etc/init.d/${NAME}
 	done
 	ln -sf ../init.d/snapclient ${STAGING_DIR}/etc/rc.d/S95snapclient
-
-	cp -v ${PACKAGE_DIR}/config/snapserver.conf ${STAGING_DIR}/etc/snapserver.conf
-	cp -rvf server/etc/snapweb ${STAGING_DIR}/${INSTALL_PREFIX}/share/snapserver/
 }
