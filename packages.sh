@@ -608,7 +608,7 @@ esac
 done
 
 BUILD_ID=$(rand_str)
-BUILD_ARCH="armv7"
+BUILD_ARCH="aarch64"
 if [[ -f "squashfs-root/usr/share/mico/version" ]]; then
 	BUILD_MODEL=$(grep HARDWARE squashfs-root/usr/share/mico/version | awk '{print $3}' | tr -d "'" | tr "[:lower:]" "[:upper:]")
 fi
