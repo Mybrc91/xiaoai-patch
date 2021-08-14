@@ -25,6 +25,11 @@ configure_package() {
         local cross_exe="qemu-arm-static -L ${STAGING_DIR}"
         local cross_hostcc="gcc"
         ;;
+    "aarch64")
+        local cross_compile="true"
+        local cross_exe="qemu-aarch64-static -L ${STAGING_DIR}"
+        local cross_hostcc="gcc"
+        ;;
     "x86")
         local cross_compile="true"
         local cross_exe="qemu-i386-static -L ${STAGING_DIR}"

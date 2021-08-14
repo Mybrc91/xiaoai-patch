@@ -14,6 +14,9 @@ install_package() {
 		"arm"|"armv7")
 		kernel_arch="arm"
 		;;
+	"aarch64")
+		kernel_arch="aarch64"
+		;;
 	"x86")
 		kernel_arch="x86"
 		;;

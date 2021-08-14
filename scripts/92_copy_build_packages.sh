@@ -1,6 +1,6 @@
 #!/bin/sh
 
-FOLDER=build-packages/s2t/armv7
+FOLDER=build-packages/s2t/aarch64
 
 echo "[*] Checking for build-package folder"
 if [ ! -d "${FOLDER}/" ]; then
