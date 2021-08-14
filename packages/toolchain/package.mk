@@ -1,6 +1,6 @@
 PACKAGE_NAME="GNU Toolchain for the A-profile Architecture"
 PACKAGE_VERSION="GCC 7.4-2019.02"
-PACKAGE_SRC="https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/arm-linux-gnueabihf/gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz"
+PACKAGE_SRC="https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz"
 
 if [ "${HOST_ARCH}" = "aarch64" ]; then
 PACKAGE_VERSION="10.2-2020.11"
@@ -21,6 +21,14 @@ on_exit_build() {
 		[[ "${HOST_ARCH}" = "aarch64" ]] && BUILD_TARGET="arm-none-linux-gnueabihf"
 
         BUILD_LDFLAGS="-L${STAGING_DIR}/lib -L${STAGING_DIR}/${INSTALL_PREFIX}/lib -Wl,--rpath-link=${STAGING_DIR}/${INSTALL_PREFIX}/lib -Wl,--rpath-link=${STAGING_DIR}/${INSTALL_PREFIX}/lib/pulseaudio -Wl,--rpath-link=${STAGING_DIR}/${INSTALL_PREFIX}/lib/private -Wl,--rpath=${INSTALL_PREFIX}/${BUILD_TARGET}/lib -Wl,--rpath=${INSTALL_PREFIX}/lib -Wl,--dynamic-linker=/lib/ld-linux-armhf.so.3 -Os"
+		;;
+	"aarch64")	
+		BUILD_TARGET="aarch64-linux-gnu"
+
+		# using GCC-10
+		[[ "${HOST_ARCH}" = "aarch64" ]] && BUILD_TARGET="arm-none-linux-gnueabihf"
+
+        BUILD_LDFLAGS="-L${STAGING_DIR}/lib -L${STAGING_DIR}/${INSTALL_PREFIX}/lib -Wl,--rpath-link=${STAGING_DIR}/${INSTALL_PREFIX}/lib -Wl,--rpath-link=${STAGING_DIR}/${INSTALL_PREFIX}/lib/pulseaudio -Wl,--rpath-link=${STAGING_DIR}/${INSTALL_PREFIX}/lib/private -Wl,--rpath=${INSTALL_PREFIX}/${BUILD_TARGET}/lib -Wl,--rpath=${INSTALL_PREFIX}/lib -Wl,--dynamic-linker=/lib/ld-linux-aarch64.so.1 -Os"
 		;;
 	"x86")
 		BUILD_TARGET="i686-linux"
